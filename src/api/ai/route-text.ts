@@ -1,6 +1,6 @@
 import { generateText } from "ai";
 import { type NextRequest, NextResponse } from "next/server";
-import { openRouter } from "./open-router";
+import { openRouter } from "../../ai/open-router";
 
 export async function GET(request: NextRequest) {
 	const result = await generateText({

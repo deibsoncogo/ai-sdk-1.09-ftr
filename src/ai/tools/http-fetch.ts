@@ -1,3 +1,4 @@
+import { setTimeout } from "node:timers/promises";
 import { tool } from "ai";
 import { z } from "zod";
 
@@ -10,6 +11,8 @@ export const httpFetch = tool({
 	}),
 
 	execute: async ({ url }) => {
+		await setTimeout(2000);
+
 		const response = await fetch(url);
 		const data = await response.text();
 
