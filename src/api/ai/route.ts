@@ -1,19 +1,54 @@
-import { generateObject } from "ai";
-import { type NextRequest, NextResponse } from "next/server";
+import { openrouter } from "@openrouter/ai-sdk-provider";
+import { streamText, tool } from "ai";
+import type { NextRequest } from "next/server";
 import { z } from "zod";
-import { openRouter } from "./open-router";
 
 export async function GET(request: NextRequest) {
-	const result = await generateObject({
-		model: openRouter.chat("openai/gpt-4o-2024-11-20"),
-		schema: z.object({
-			en: z.string().describe("Tradução para inglês"),
-			fr: z.string().describe("Tradução para francês"),
-			es: z.string().describe("Tradução para espanhol"),
-		}),
-		prompt: 'Traduza "Hello World" para diferentes idiomas!',
-		system: "Você é uma AI especializada em tradução",
+	const { messages } = await request.json();
+
+	const result = streamText({
+		model: openrouter.chat("openai/gpt-4o-2024-11-20"),
+		tools: {
+			profileAndUrls: tool({
+				description:
+					"Ferramenta serve para buscar do perfil de um usuário do GitHub ou acessar URLs da API para outras informações de um usuário como lista de organizações, repositórios, eventos, seguidores, seguindo, etc...",
+				parameters: z.object({
+					username: z.string().describe("Username do usuário no GitHub"),
+				}),
+				execute: async ({ username }) => {
+					const response = await fetch(
+						`https://api.github.com/users/${username}`,
+					);
+
+					const data = await response.json();
+
+					return JSON.stringify(data);
+				},
+			}),
+
+			fetchHTTP: tool({
+				description:
+					"Essa ferramenta serve para realizar uma requisição HTTP em uma URL especificada e acessar sua resposta",
+				parameters: z.object({
+					url: z.string().describe("URL a ser requisitada"),
+				}),
+				execute: async ({ url }) => {
+					const response = await fetch(url);
+					const data = await response.text();
+
+					return data;
+				},
+			}),
+		},
+		messages,
+		maxSteps: 5,
+		system:
+			"Sempre responsa em markdown sem aspas no início ou fim da mensagem",
+
+		onStepFinish({ toolResults }) {
+			console.log(toolResults);
+		},
 	});
 
-	return NextResponse.json({ message: result.object });
+	return result.toDataStreamResponse();
 }
