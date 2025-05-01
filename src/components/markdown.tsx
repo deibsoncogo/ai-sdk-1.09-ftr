@@ -41,7 +41,6 @@ function MarkdownComponent({ children, id, className }: MarkdownProps) {
 		<>
 			{blocks.map((block, index) => (
 				<MemoizedMarkdownBlock
-					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={`${blockId}-block-${index}`}
 					content={block}
 					className={className}

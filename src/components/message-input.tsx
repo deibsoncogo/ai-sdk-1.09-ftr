@@ -47,13 +47,11 @@ export function MessageInput({
 					onKeyDown={handleKeyDown}
 					disabled={disabled}
 					ref={textareaRef}
-					// biome-ignore lint/a11y/noAutofocus: <explanation>
 					autoFocus
 				/>
 
 				<div className="flex justify-end">
 					<button
-						type="button"
 						disabled={disabled}
 						className="px-3 py-1.5 text-sm rounded-md flex items-center gap-2 bg-white text-black font-medium cursor-pointer hover:opacity-80 disabled:opacity-50"
 					>

@@ -5,7 +5,6 @@ function ChatHistoryItem({
 }) {
 	return (
 		<button
-			type="button"
 			data-active={isActive}
 			className="truncate w-full text-left text-sm px-2.5 py-2 rounded-md cursor-pointer text-zinc-100 data-active:bg-zinc-900 hover:bg-zinc-900"
 		>

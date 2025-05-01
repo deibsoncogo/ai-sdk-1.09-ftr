@@ -9,10 +9,7 @@ export function Sidebar() {
 					Recent chats
 				</span>
 
-				<button
-					type="button"
-					className="uppercase rounded-md text-sm flex items-center justify-center text-zinc-400 font-medium border border-zinc-800 size-6 cursor-pointer hover:bg-zinc-900"
-				>
+				<button className="uppercase rounded-md text-sm flex items-center justify-center text-zinc-400 font-medium border border-zinc-800 size-6 cursor-pointer hover:bg-zinc-900">
 					<Plus className="size-4" />
 					<span className="sr-only">New chat</span>
 				</button>

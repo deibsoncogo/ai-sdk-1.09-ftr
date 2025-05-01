@@ -7,10 +7,7 @@ export function ChatHeader() {
 				How to create Next.js applications with TypeScript
 			</span>
 
-			<button
-				type="button"
-				className="uppercase rounded-md flex items-center justify-center text-zinc-400 font-medium border border-zinc-800 size-6 cursor-pointer hover:bg-zinc-900"
-			>
+			<button className="uppercase rounded-md flex items-center justify-center text-zinc-400 font-medium border border-zinc-800 size-6 cursor-pointer hover:bg-zinc-900">
 				<MoreHorizontal className="size-4" />
 				<span className="sr-only">Chat actions</span>
 			</button>
