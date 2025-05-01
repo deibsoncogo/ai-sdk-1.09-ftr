@@ -1,12 +1,12 @@
-import { openrouter } from "@openrouter/ai-sdk-provider";
 import { generateText, tool } from "ai";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { openRouter } from "../../ai/open-router";
 
 export async function GET(request: NextRequest) {
 	const result = await generateText({
-		model: openrouter.chat("openai/gpt-4o-2024-11-20"),
+		model: openRouter.chat("openai/gpt-4o-2024-11-20"),
 		tools: {
 			profileAndUrls: tool({
 				description:
